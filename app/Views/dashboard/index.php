@@ -1,6 +1,17 @@
 <?= $this->extend('dashboard/_layout') ?>
 
 <?= $this->section('content') ?>
+<?php if (session()->getFlashdata('success')): ?>
+        <div class="alert-success" style="
+        background: #4CAF50;
+        color: white;
+        padding: 10px;
+        margin: 10px;
+        border-radius: 5px;
+    ">
+            <?= session()->getFlashdata('success') ?>
+        </div>
+<?php endif; ?>
 <div class="page">
     <div class="page-header">
         <div></div>
@@ -35,4 +46,12 @@
         </div>
     </div>
 </div>
+<script>
+setTimeout(() => {
+    const alertBox = document.querySelector('.alert-success');
+    if (alertBox) {
+        alertBox.style.display = 'none';
+    }
+}, 3000);
+</script>
 <?= $this->endSection() ?>

@@ -1,0 +1,353 @@
+/* ============================================================
+   UPUBKB WIYUNG - Display Antrian CSS
+   Dinas Perhubungan Kota Surabaya
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+
+/* ---------- Reset & Base ---------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f2f5;
+    min-height: 100vh;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+}
+
+/* ---------- Main Container ---------- */
+.display-container {
+    width: 100%;
+    max-width: 1280px;
+    min-height: 100vh;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---------- HEADER ---------- */
+.header {
+    background: linear-gradient(135deg, #4a3a8c 0%, #5c4aaa 60%, #6b57c2 100%);
+    color: #f5c842;
+    text-align: center;
+    padding: 28px 40px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+}
+
+.header::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #f5c842, #e8b800, #f5c842);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+/* Logo / Icon area (opsional — jika ada <img> di header) */
+.header img.logo {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    margin-bottom: 8px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.header h1 {
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #f5c842;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+.header h2 {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #f5c842cc;
+    letter-spacing: 0.02em;
+}
+
+/* Sub-title kecil (Unit Pengelolaan...) */
+.header p,
+.header .subtitle {
+    font-size: 0.85rem;
+    color: #f5e87a;
+    font-weight: 400;
+}
+
+/* ---------- GRID LAYOUT ---------- */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 32px;
+    padding: 40px 48px;
+    flex: 1;
+}
+
+/* ---------- POS COLUMN ---------- */
+.pos-column {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.pos-box {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.card {
+    background: #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card.blue {
+    background: #3f3c99;
+    color: white;
+}
+
+.card-header {
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+    border-bottom: 1px solid #999;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.label {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.value {
+    font-size: 24px;
+    font-weight: bold;
+}
+/* ---------- POS TITLE BAR ---------- */
+.pos-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 14px 20px;
+    border-radius: 10px 10px 0 0;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* POS 1 title — abu-abu gelap */
+.pos:nth-child(odd) .pos-title {
+    background-color: #c8c8c8;
+    color: #1a1a2e;
+}
+
+/* POS 2 title — biru tua */
+.pos:nth-child(even) .pos-title {
+    background-color: #3d3db5;
+    color: #ffffff;
+}
+
+/* ---------- CARD ---------- */
+.card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: stretch;
+    border-radius: 0 0 10px 10px;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+/* POS 1 card (active / primary) */
+.pos:nth-child(odd) .card.active,
+.pos:nth-child(odd) .card.secondary {
+    background-color: #e8e8e8;
+}
+
+/* POS 2 card */
+.pos:nth-child(even) .card.active,
+.pos:nth-child(even) .card.secondary {
+    background-color: #3d3db5;
+}
+
+/* ---------- CARD ROWS ---------- */
+/* Setiap baris di dalam card */
+.card-row {
+    display: flex;
+    align-items: center;
+    padding: 14px 22px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.card-row:first-child {
+    border-top: none;
+}
+
+/* Label (Nomor Kendaraan / Nama Pemilik) */
+.card-row .label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    min-width: 160px;
+    color: inherit;
+    opacity: 0.75;
+}
+
+/* Value */
+.card-row .value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: inherit;
+}
+
+/* ---------- NOPOL & NAMA (versi lama tanpa card-row) ---------- */
+/* Jika template menggunakan .nopol dan .nama langsung */
+.card {
+    display: block;
+    border-radius: 0 0 10px 10px;
+}
+
+.card .nopol,
+.card .nama {
+    display: flex;
+    align-items: center;
+    padding: 13px 22px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    gap: 16px;
+}
+
+.card .nopol::before {
+    content: 'Nomor Kendaraan:';
+    font-size: 0.88rem;
+    font-weight: 600;
+    min-width: 155px;
+    flex-shrink: 0;
+    opacity: 0.72;
+}
+
+.card .nama::before {
+    content: 'Nama Pemilik:';
+    font-size: 0.88rem;
+    font-weight: 600;
+    min-width: 155px;
+    flex-shrink: 0;
+    opacity: 0.72;
+}
+
+.card .nopol,
+.card .nama {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+/* POS 1 text color */
+.pos:nth-child(odd) .card .nopol,
+.pos:nth-child(odd) .card .nama {
+    color: #1a1a2e;
+}
+
+/* POS 2 text color */
+.pos:nth-child(even) .card .nopol,
+.pos:nth-child(even) .card .nama {
+    color: #ffffff;
+}
+
+/* POS 2 border separator */
+.pos:nth-child(even) .card .nopol,
+.pos:nth-child(even) .card .nama {
+    border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+/* ---------- MULTIPLE CARDS IN ONE POS ---------- */
+/* Card ke-2 dst (secondary) beri jarak atas */
+.pos .card+.card {
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+/* Jika ada card ke-2, title-nya juga perlu radius atas */
+.pos .card+.card~.card {
+    margin-top: 20px;
+}
+
+/* ---------- FOOTER ---------- */
+.footer {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 48px;
+    background-color: #f7f7f7;
+    border-top: 2px solid #e0e0e0;
+}
+
+.footer img.logo-footer {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.footer .footer-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer .footer-text strong {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #1a1a2e;
+}
+
+.footer .footer-text span {
+    font-size: 0.75rem;
+    color: #666;
+    font-weight: 400;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+        padding: 24px 20px;
+        gap: 24px;
+    }
+
+    .header h1 {
+        font-size: 1.1rem;
+    }
+
+    .header h2 {
+        font-size: 0.85rem;
+    }
+
+    .card .nopol::before,
+    .card .nama::before {
+        min-width: 120px;
+        font-size: 0.78rem;
+    }
+
+    .card .nopol,
+    .card .nama {
+        font-size: 0.95rem;
+        padding: 10px 14px;
+    }
+
+    .pos-title {
+        font-size: 1.1rem;
+    }
+}

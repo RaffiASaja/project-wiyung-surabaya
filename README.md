@@ -1,69 +1,81 @@
-# CodeIgniter 4 Application Starter
+# Project Wiyung Surabaya (CodeIgniter 4)
 
-## What is CodeIgniter?
+README ini fokus untuk menyamakan pemahaman struktur proyek dan **konvensi penamaan file** agar tidak terjadi perbedaan nama (terutama masalah *case-sensitive* saat deploy ke Linux).
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+## Struktur folder & file penting
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+### Root project
+- `app/` → kode utama aplikasi (Controller, Model, View, Config, dst.)
+- `public/` → **document root** web server (entrypoint aplikasi ada di sini)
+- `writable/` → folder runtime (logs, cache, session, upload) — harus writable
+- `vendor/` → dependency Composer (jangan diedit manual)
+- `.env` → konfigurasi environment (baseURL, database, dll.) **jangan commit**
+- `composer.json` / `composer.lock` → daftar dependency & versi yang terkunci
+- `spark` → CLI CodeIgniter (migrate, seed, cache, dll.)
+- `tests/` → unit/integration test (opsional)
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+### `app/` (yang paling sering disentuh)
+- `app/Config/Routes.php` → daftar route aplikasi (mapping URL → Controller::method)
+- `app/Controllers/` → endpoint/handler request
+- `app/Models/` → akses database & aturan data
+- `app/Views/` → template tampilan
+- `app/Database/` → migrations & seeds
+- `app/Filters/` → filter request (auth, csrf, dll.)
+- `app/Helpers/` → helper function
+- `app/Libraries/` → library custom (class)
+- `app/Language/` → file bahasa (i18n)
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+### `public/`
+- `public/index.php` → entrypoint aplikasi (web server **wajib** mengarah ke folder `public/`)
+- `public/.htaccess` → aturan rewrite (Apache)
 
-## Installation & updates
+## Konvensi penamaan (wajib konsisten)
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+### Aturan umum
+1. **Nama file = nama class (case harus sama)** untuk semua class PHP yang di-autoload (PSR-4).
+2. Gunakan **PascalCase** untuk nama file class: `Antrian.php`, `AntrianModel.php`.
+3. Hindari spasi, gunakan huruf/angka/underscore saja.
+4. Jika deploy ke Linux: `Antrian.php` ≠ `antrian.php` (beda file). Walau di Windows sering “terlihat sama”.
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+### Controllers (`app/Controllers/`)
+- File: `PascalCase.php`
+- Class: `PascalCase`
+- Namespace: `App\Controllers`
+- Method: `camelCase()`
+- Contoh:
+  - File `app/Controllers/Antrian.php` → class `Antrian`
+  - Route: `$routes->get('master-data/belum-dipanggil', 'Dashboard::dataBelumDipanggil');`
 
-## Setup
+### Models (`app/Models/`)
+- File: `NamaModel.php` (akhiran **Model** konsisten)
+- Class: `NamaModel`
+- Namespace: `App\Models`
+- Contoh:
+  - File `app/Models/AntrianModel.php` → class `AntrianModel`
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+### Views (`app/Views/`)
+- Folder: lowercase (contoh: `auth/`, `dashboard/`)
+- File view: lowercase + `snake_case.php` (contoh: `data_belum_dipanggil.php`)
+- Partial/layout: awali dengan underscore (contoh: `_layout.php`)
+- Pemanggilan view **harus sesuai path**:
+  - `return view('dashboard/index');` → `app/Views/dashboard/index.php`
 
-## Important Change with index.php
+### Routes (`app/Config/Routes.php`)
+- URL gunakan **kebab-case** untuk keterbacaan: `master-data/belum-dipanggil`
+- Target controller/method gunakan format CI4: `Controller::method`
+- Hindari nama route yang “mirip-mirip” beda huruf besar/kecil.
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+### Database (`app/Database/`)
+- `Migrations/` → gunakan format nama migration CI4 (timestamp + deskripsi), konsisten dengan tabel yang dibuat.
+- `Seeds/` → nama file class PascalCase, mis. `AntrianSeeder.php`.
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+## Checklist saat menambah fitur baru
+1. Buat Controller di `app/Controllers/` (PascalCase).
+2. Tambah route di `app/Config/Routes.php` (URL kebab-case, target `Controller::method`).
+3. Buat Model di `app/Models/` (akhiran `Model`).
+4. Buat view di `app/Views/` (folder lowercase, file snake_case).
+5. Pastikan semua referensi (route, view(), namespace, class name) **case-nya sama persis**.
 
-**Please** read the user guide for a better explanation of how CI4 works!
-
-## Repository Management
-
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
-
-## Server Requirements
-
-PHP version 8.2 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - The end of life date for PHP 8.1 was December 31, 2025.
-> - If you are still using below PHP 8.2, you should upgrade immediately.
-> - The end of life date for PHP 8.2 will be December 31, 2026.
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+## Catatan singkat environment
+- File konfigurasi utama: `.env` (baseURL, DB, dll.)
+- Pastikan server mengarah ke `public/` (bukan root project).
