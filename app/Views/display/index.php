@@ -53,18 +53,10 @@
             if (audioEnabled) {
                 speechSynthesis.speak(new SpeechSynthesisUtterance(" "));
             }
+            if (audioEnabled && queue.length > 0 && !isSpeaking) {
+                speakQueue();
+            }
         }
-        // function initAudio() {
-        //     const utterance = new SpeechSynthesisUtterance(" ");
-        //     speechSynthesis.speak(utterance);
-
-        //     audioReady = true;
-
-        //     // 🔥 langsung jalankan queue kalau ada
-        //     if (queue.length > 0 && !isSpeaking) {
-        //         speakQueue();
-        //     }
-        // }
 
         // 🔔 ding + TTS
         function playDingThenSpeak(text) {
@@ -87,6 +79,7 @@
                 speechSynthesis.speak(utterance);
             });
         }
+
 
         // queue system
         function speakQueue() {
@@ -122,18 +115,22 @@
 
                     let all = [...data.pos1, ...data.pos2];
 
-                    let currentIds = all.map(item => item.id);
-
                     all.forEach(item => {
-                        if (!lastIds.includes(item.id)) {
+
+                        let key = item.id;
+                        let time = item.waktu_panggil;
+
+                        // 🔥 DETEKSI PERUBAHAN
+                        if (!lastMap[key] || lastMap[key] !== time) {
 
                             let text = `Nomor kendaraan ${item.nomor_kendaraan}, silakan menuju pos ${item.pos}`;
 
                             addToQueue(text);
+
+                            // simpan state terbaru
+                            lastMap[key] = time;
                         }
                     });
-
-                    lastIds = currentIds;
 
                     updateUI(data);
                 });

@@ -70,7 +70,13 @@ class Antrian extends BaseController
         }
 
         // 🔥 OPTIONAL: cooldown biar tidak spam
-        if ($data['waktu_panggil'] && strtotime($data['waktu_panggil']) > time() - 3) {
+        if ($data['waktu_panggil'] instanceof \CodeIgniter\I18n\Time) {
+            $time = $data['waktu_panggil']->getTimestamp();
+        } else {
+            $time = strtotime((string) $data['waktu_panggil']);
+        }
+
+        if ($time > time() - 3) {
             return redirect()->back()->with('error', 'Tunggu beberapa detik untuk panggil ulang');
         }
 

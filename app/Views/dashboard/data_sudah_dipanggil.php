@@ -24,7 +24,7 @@
                         <th style="width: 180px;">Nama Pemilik</th>
                         <th style="width: 150px;">Nomor Uji</th>
                         <th style="width: 170px;">Nomor Kendaraan</th>
-                        <th>Alamat</th>
+                        <th>Pos</th>
                         <th style="width: 120px;">Status</th>
                     </tr>
                 </thead>
@@ -36,7 +36,7 @@
                             <td><?= $row['nama'] ?></td>
                             <td><?= $row['no_uji'] ?></td>
                             <td><?= $row['nomor_kendaraan'] ?? '-' ?></td>
-                            <td><?= $row['alamat'] ?? '-' ?></td>
+                            <td><?= $row['pos'] ?? '-' ?></td>
                             <td>
                                 <?php if ($row['status'] === 'dipanggil'): ?>
                                     <span style="color: orange;">Dipanggil</span>
