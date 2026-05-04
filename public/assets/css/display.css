@@ -23,10 +23,21 @@ body {
     justify-content: center;
 }
 
+#btnAudio {
+    margin-left: auto;
+    border: 0;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-weight: 700;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.65);
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
 /* ---------- Main Container ---------- */
 .display-container {
     width: 100%;
-    max-width: 1280px;
     min-height: 100vh;
     background-color: #ffffff;
     display: flex;
@@ -97,6 +108,9 @@ body {
     gap: 28px 32px;
     padding: 40px 48px;
     flex: 1;
+    max-width: 1120px;
+    width: 100%;
+    margin: 0 auto;
 }
 
 /* ---------- POS COLUMN ---------- */
@@ -104,6 +118,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 30px;
+    max-width: 520px;
 }
 
 .pos-box {
@@ -127,6 +142,10 @@ body {
     font-weight: bold;
     padding: 10px;
     border-bottom: 1px solid #999;
+}
+
+.card.blue .card-header {
+    border-bottom-color: rgba(255, 255, 255, 0.2);
 }
 
 .card-body {
@@ -214,6 +233,10 @@ body {
     font-size: 1.1rem;
     font-weight: 700;
     color: inherit;
+}
+
+.card.blue .card-row {
+    border-top-color: rgba(255, 255, 255, 0.18);
 }
 
 /* ---------- NOPOL & NAMA (versi lama tanpa card-row) ---------- */
