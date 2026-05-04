@@ -1,11 +1,13 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= esc($title ?? 'Dashboard') ?></title>
     <link rel="stylesheet" href="<?= base_url('assets/css/dashboard.css') ?>">
 </head>
+
 <body>
     <div class="app">
         <aside class="sidebar">
@@ -26,7 +28,8 @@
             </div>
 
             <nav class="menu">
-                <a class="menu-item <?= ($active ?? '') === 'dashboard' ? 'active' : '' ?>" href="<?= site_url('dashboard') ?>">
+                <a class="menu-item <?= ($active ?? '') === 'dashboard' ? 'active' : '' ?>"
+                    href="<?= site_url('dashboard') ?>">
                     <span class="icon">⌂</span>
                     <span>Dashboard</span>
                 </a>
@@ -39,11 +42,13 @@
                         <span class="caret">›</span>
                     </div>
                     <div class="submenu" data-submenu>
-                        <a class="submenu-item <?= ($active ?? '') === 'belum' ? 'active' : '' ?>" href="<?= site_url('master-data/belum-dipanggil') ?>">
+                        <a class="submenu-item <?= ($active ?? '') === 'belum' ? 'active' : '' ?>"
+                            href="<?= site_url('master-data/belum-dipanggil') ?>">
                             <span class="dot">○</span>
                             <span>Data belum dipanggil</span>
                         </a>
-                        <a class="submenu-item <?= ($active ?? '') === 'sudah' ? 'active' : '' ?>" href="<?= site_url('master-data/sudah-dipanggil') ?>">
+                        <a class="submenu-item <?= ($active ?? '') === 'sudah' ? 'active' : '' ?>"
+                            href="<?= site_url('master-data/sudah-dipanggil') ?>">
                             <span class="dot">○</span>
                             <span>Data sudah dipanggil</span>
                         </a>
@@ -64,7 +69,12 @@
                     <div class="topbar-title">Admin Panel - UPUBKB WIYUNG</div>
                 </div>
                 <div class="topbar-right">
-                    <div class="user">●</div>
+                    <?php
+                    $username = session('username');
+                    $initial = $username ? strtoupper(substr($username, 0, 1)) : '?';
+                    ?>
+
+                    <div class="user"><?= esc($initial) ?></div>
                 </div>
             </header>
 
@@ -84,15 +94,16 @@
                 var saved = localStorage.getItem('menu.master.open');
                 if (saved === '1') group.classList.add('open');
                 if (saved === '0') group.classList.remove('open');
-            } catch (e) {}
+            } catch (e) { }
 
             toggle.addEventListener('click', function () {
                 group.classList.toggle('open');
                 try {
                     localStorage.setItem('menu.master.open', group.classList.contains('open') ? '1' : '0');
-                } catch (e) {}
+                } catch (e) { }
             });
         })();
     </script>
 </body>
+
 </html>
