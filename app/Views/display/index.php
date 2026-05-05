@@ -12,8 +12,9 @@
 
         <!-- HEADER -->
         <div class="header">
-            <h1>PEMERINTAH KOTA SURABAYA</h1>
-            <h2>UPUBKB WIYUNG</h2>
+            <img class="logo" src="<?= base_url('assets/img/shield.svg') ?>" alt="">
+            <h1>UPUBKB WIYUNG - DINAS PERHUBUNGAN KOTA SURABAYA</h1>
+            <h2>(Unit Pengelolaan Pengujian Kendaraan Bermotor)</h2>
         </div>
 
         <div class="grid">
@@ -29,12 +30,20 @@
             </div>
 
         </div>
-    </div>
 
-    <!-- 🔊 tombol unlock audio -->
-    <button onclick="toggleAudio()" id="btnAudio">
-        🔇 OFF
-    </button>
+        <div class="footer">
+            <img class="logo-footer" src="<?= base_url('assets/img/logo-upiukkb.svg') ?>" alt="">
+            <div class="footer-text">
+                <strong>Pemerintah Kota Surabaya - Dinas Perhubungan</strong>
+                <span>© 2026 UPUBKB Wiyung</span>
+            </div>
+
+            <!-- 🔊 tombol unlock audio -->
+            <button onclick="toggleAudio()" id="btnAudio">
+                🔇 OFF
+            </button>
+        </div>
+    </div>
 
     <script>
         let audioEnabled = false;
@@ -149,11 +158,12 @@
                 pos1.innerHTML += `
             <div class="card">
                 <div class="card-header">POS 1</div>
-                <div class="card-body">
+                <div class="card-row">
                     <div class="label">Nomor Kendaraan:</div>
                     <div class="value">${row.nomor_kendaraan}</div>
-
-                    <div class="label" style="margin-top:10px;">Nama Pemilik:</div>
+                </div>
+                <div class="card-row">
+                    <div class="label">Nama Pemilik:</div>
                     <div class="value">${row.nama}</div>
                 </div>
             </div>
@@ -165,11 +175,12 @@
                 pos2.innerHTML += `
             <div class="card blue">
                 <div class="card-header">POS 2</div>
-                <div class="card-body">
+                <div class="card-row">
                     <div class="label">Nomor Kendaraan:</div>
                     <div class="value">${row.nomor_kendaraan}</div>
-
-                    <div class="label" style="margin-top:10px;">Nama Pemilik:</div>
+                </div>
+                <div class="card-row">
+                    <div class="label">Nama Pemilik:</div>
                     <div class="value">${row.nama}</div>
                 </div>
             </div>

@@ -29,7 +29,7 @@
                         <th style="width: 70px;">Nomor</th>
                         <th style="width: 180px;">Nama Pemilik</th>
                         <th style="width: 150px;">Nomor Uji</th>
-                        <th style="width: 170px;">Nomor Kendaraan</th>
+                        <th style="width: 170px;">Nomor Kendaraan HEBAT</th>
                         <th>Alamat</th>
                         <th>Pos</th>
                         <th style="width: 140px;">Aksi Panggilan</th>
