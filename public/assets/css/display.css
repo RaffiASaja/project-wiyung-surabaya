@@ -5,6 +5,12 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
 
+/* Layout variables (tuned for TV/laptop) */
+:root {
+    --display-header-h: 175px;
+    --display-footer-h: 78px;
+}
+
 /* ---------- Reset & Base ---------- */
 *,
 *::before,
@@ -21,6 +27,7 @@ body {
     display: flex;
     align-items: stretch;
     justify-content: center;
+    overflow: hidden; /* display TV: no page scroll */
 }
 
 #btnAudio {
@@ -30,9 +37,7 @@ body {
     padding: 10px 14px;
     font-weight: 700;
     cursor: pointer;
-    background: rgba(0, 0, 0, 0.65);
-    color: #fff;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+    
 }
 
 /* ---------- Main Container ---------- */
@@ -42,6 +47,8 @@ body {
     background-color: #ffffff;
     display: flex;
     flex-direction: column;
+    padding-top: var(--display-header-h);
+    padding-bottom: var(--display-footer-h);
 }
 
 /* ---------- HEADER ---------- */
@@ -54,7 +61,12 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 4px;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--display-header-h);
+    z-index: 50;
 }
 
 .header::after {
@@ -78,8 +90,9 @@ body {
 }
 
 .header h1 {
-    font-size: 1.55rem;
-    font-weight: 700;
+    font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
+    font-size: clamp(1.2rem, 1.1rem + 0.9vw, 2.2rem);
+    font-weight: 500;
     letter-spacing: 0.06em;
     color: #f5c842;
     text-transform: uppercase;
@@ -87,7 +100,8 @@ body {
 }
 
 .header h2 {
-    font-size: 1rem;
+    font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
+    font-size: clamp(0.75rem, 0.78rem + 0.5vw, 1.1rem);
     font-weight: 400;
     color: #f5c842cc;
     letter-spacing: 0.02em;
@@ -111,202 +125,165 @@ body {
     max-width: 1120px;
     width: 100%;
     margin: 0 auto;
-}
-
-/* ---------- POS COLUMN ---------- */
-.pos-column {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    max-width: 520px;
-}
-
-.pos-box {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-.card {
-    background: #ddd;
-    border-radius: 10px;
     overflow: hidden;
 }
 
+/* =========================================
+   CONTAINER GRID
+========================================= */
+.pos-box {
+    display: grid;
+    gap: 15px;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+/* =========================================
+   RESPONSIVE JUMLAH CARD
+========================================= */
+
+/* 1 CARD */
+.pos-box.count-1 {
+    grid-template-columns: 1fr;
+}
+
+.pos-box.count-1 .card {
+    min-height: 200px;
+}
+
+.pos-box.count-1 .value {
+    font-size: 25px;
+}
+
+/* 2 CARD */
+.pos-box.count-2 {
+    grid-template-columns: 1fr;
+}
+
+.pos-box.count-2 .card {
+    min-height: 200px;
+}
+
+.pos-box.count-2 .value {
+    font-size: 25px;
+}
+
+/* 3 - 4 CARD */
+.pos-box.count-3,
+.pos-box.count-4 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.pos-box.count-3 .card,
+.pos-box.count-4 .card {
+    min-height: 220px;
+}
+
+.pos-box.count-3 .value,
+.pos-box.count-4 .value {
+    font-size: 24px;
+}
+
+/* > 4 CARD */
+.pos-box.count-many {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+.pos-box.count-many .value {
+    font-size: 20px;
+}
+
+/* =========================================
+   CARD STYLE
+========================================= */
+.card {
+    background: #ddd;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    transition: all 0.3s ease;
+}
+
+/* 🔥 POS 2 UNGU */
 .card.blue {
-    background: #3f3c99;
+    background: #5b3cc4;
     color: white;
 }
 
+/* HEADER */
 .card-header {
     text-align: center;
     font-weight: bold;
-    padding: 10px;
+    font-size: 20px;
+    padding: 14px;
     border-bottom: 1px solid #999;
+    background: rgba(255, 255, 255, 0.15);
 }
 
+/* border header khusus ungu */
 .card.blue .card-header {
     border-bottom-color: rgba(255, 255, 255, 0.2);
 }
 
+/* BODY */
 .card-body {
     padding: 20px;
 }
 
+/* ROW */
+.card-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+    padding: 0 10px;
+    border-top:1px solid #999999c4;
+}
+
+/* LABEL */
 .label {
     font-size: 14px;
     opacity: 0.7;
+    margin-bottom: 6px;
 }
 
+/* VALUE */
 .value {
     font-size: 24px;
     font-weight: bold;
-}
-/* ---------- POS TITLE BAR ---------- */
-.pos-title {
-    font-size: 1.35rem;
-    font-weight: 700;
-    text-align: center;
-    padding: 14px 20px;
-    border-radius: 10px 10px 0 0;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    word-break: break-word;
+    line-height: 1.3;
+    padding-left: 20px;
 }
 
-/* POS 1 title — abu-abu gelap */
-.pos:nth-child(odd) .pos-title {
-    background-color: #c8c8c8;
-    color: #1a1a2e;
+/* =========================================
+   RESPONSIVE TV / MONITOR
+========================================= */
+@media (max-width: 1200px) {
+    .value {
+        font-size: 20px !important;
+    }
+
+    .card-header {
+        font-size: 18px;
+    }
 }
 
-/* POS 2 title — biru tua */
-.pos:nth-child(even) .pos-title {
-    background-color: #3d3db5;
-    color: #ffffff;
-}
+@media (max-width: 768px) {
 
-/* ---------- CARD ---------- */
-.card {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: stretch;
-    border-radius: 0 0 10px 10px;
-    overflow: hidden;
-    margin-bottom: 0;
-}
+    .pos-box,
+    .pos-box.count-3,
+    .pos-box.count-4,
+    .pos-box.count-many {
+        grid-template-columns: 1fr;
+    }
 
-/* POS 1 card (active / primary) */
-.pos:nth-child(odd) .card.active,
-.pos:nth-child(odd) .card.secondary {
-    background-color: #e8e8e8;
-}
+    .card {
+        min-height: auto !important;
+    }
 
-/* POS 2 card */
-.pos:nth-child(even) .card.active,
-.pos:nth-child(even) .card.secondary {
-    background-color: #3d3db5;
-}
-
-/* ---------- CARD ROWS ---------- */
-/* Setiap baris di dalam card */
-.card-row {
-    display: flex;
-    align-items: center;
-    padding: 14px 22px;
-    border-top: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-.card-row:first-child {
-    border-top: none;
-}
-
-/* Label (Nomor Kendaraan / Nama Pemilik) */
-.card-row .label {
-    font-size: 0.88rem;
-    font-weight: 600;
-    min-width: 160px;
-    color: inherit;
-    opacity: 0.75;
-}
-
-/* Value */
-.card-row .value {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: inherit;
-}
-
-.card.blue .card-row {
-    border-top-color: rgba(255, 255, 255, 0.18);
-}
-
-/* ---------- NOPOL & NAMA (versi lama tanpa card-row) ---------- */
-/* Jika template menggunakan .nopol dan .nama langsung */
-.card {
-    display: block;
-    border-radius: 0 0 10px 10px;
-}
-
-.card .nopol,
-.card .nama {
-    display: flex;
-    align-items: center;
-    padding: 13px 22px;
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
-    gap: 16px;
-}
-
-.card .nopol::before {
-    content: 'Nomor Kendaraan:';
-    font-size: 0.88rem;
-    font-weight: 600;
-    min-width: 155px;
-    flex-shrink: 0;
-    opacity: 0.72;
-}
-
-.card .nama::before {
-    content: 'Nama Pemilik:';
-    font-size: 0.88rem;
-    font-weight: 600;
-    min-width: 155px;
-    flex-shrink: 0;
-    opacity: 0.72;
-}
-
-.card .nopol,
-.card .nama {
-    font-size: 1.1rem;
-    font-weight: 700;
-}
-
-/* POS 1 text color */
-.pos:nth-child(odd) .card .nopol,
-.pos:nth-child(odd) .card .nama {
-    color: #1a1a2e;
-}
-
-/* POS 2 text color */
-.pos:nth-child(even) .card .nopol,
-.pos:nth-child(even) .card .nama {
-    color: #ffffff;
-}
-
-/* POS 2 border separator */
-.pos:nth-child(even) .card .nopol,
-.pos:nth-child(even) .card .nama {
-    border-top-color: rgba(255, 255, 255, 0.12);
-}
-
-/* ---------- MULTIPLE CARDS IN ONE POS ---------- */
-/* Card ke-2 dst (secondary) beri jarak atas */
-.pos .card+.card {
-    margin-top: 20px;
-    border-radius: 10px;
-}
-
-/* Jika ada card ke-2, title-nya juga perlu radius atas */
-.pos .card+.card~.card {
-    margin-top: 20px;
+    .value {
+        font-size: 18px !important;
+    }
 }
 
 /* ---------- FOOTER ---------- */
@@ -317,6 +294,12 @@ body {
     padding: 18px 48px;
     background-color: #f7f7f7;
     border-top: 2px solid #e0e0e0;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--display-footer-h);
+    z-index: 50;
 }
 
 .footer img.logo-footer {
@@ -344,6 +327,11 @@ body {
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 768px) {
+    :root {
+        --display-header-h: 132px;
+        --display-footer-h: 74px;
+    }
+
     .grid {
         grid-template-columns: 1fr;
         padding: 24px 20px;

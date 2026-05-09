@@ -21,5 +21,7 @@ $routes->get('/display', 'Display::index');
 $routes->get('/display/data', 'Display::data');
 $routes->get('antrian/panggil-ulang/(:num)', 'Antrian::panggilUlang/$1');
 $routes->get('antrian/selesai/(:num)', 'Antrian::selesai/$1');
+$routes->get('antrian/ajax', 'Antrian::ajaxList');
+$routes->get('antrian/ambil-data-kantor', 'Antrian::ambilDataKantor');
 
 

@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= esc($title ?? 'Dashboard') ?></title>
     <link rel="stylesheet" href="<?= base_url('assets/css/dashboard.css') ?>">
+    <script defer src="<?= base_url('assets/js/lib/fetch.js') ?>"></script>
+    <script defer src="<?= base_url('assets/js/office-api.js') ?>"></script>
+    <script defer src="<?= base_url('assets/js/datatable.js') ?>"></script>
+    <script defer src="<?= base_url('assets/js/dashboard.js') ?>"></script>
 </head>
 
 <body>
@@ -13,13 +17,13 @@
         <aside class="sidebar">
             <div class="brand">
                 <div class="brand-top">
-                    <img class="brand-shield" src="<?= base_url('assets/img/shield.svg') ?>" alt="">
+                    <img class="brand-shield" src="<?= base_url('assets/img/logo_kota_sby.svg') ?>" alt="">
                     <div class="brand-text">
-                        <div class="brand-name">admin LTE</div>
+                        <div class="brand-name">Admin LTE</div>
                     </div>
                 </div>
                 <div class="brand-bottom">
-                    <img class="brand-city" src="<?= base_url('assets/img/logo-upiukkb.svg') ?>" alt="">
+                    <img class="brand-city" src="<?= base_url('assets/img/logo_dishub.png') ?>" alt="">
                     <div class="brand-subtext">
                         <div>Pemerintah</div>
                         <div><b>Kota Surabaya</b></div>

@@ -1,11 +1,14 @@
 html,
-
+body {
+    height: 100%;
+}
 
 body {
     margin: 0;
     font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
     background: #cfe6f5;
     color: #111;
+    overflow: hidden; /* jangan bisa scroll di halaman login */
 }
 
 .auth {
@@ -13,7 +16,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 48px 16px;
+    padding: 16px;
 }
 
 .auth-card {
@@ -22,7 +25,7 @@ body {
     background: #fff;
     border: 1px solid rgba(0, 0, 0, 0.08);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-    padding: 56px 56px 64px;
+    padding: clamp(28px, 3vw, 56px) clamp(22px, 3vw, 56px) clamp(34px, 3vw, 64px);
     text-align: center;
 }
 

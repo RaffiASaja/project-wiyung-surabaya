@@ -25,7 +25,12 @@ abstract class BaseController extends Controller
      * The creation of dynamic property is deprecated in PHP 8.2.
      */
 
-    // protected $session;
+    /**
+     * Helpers to load on every request.
+     *
+     * @var list<string>
+     */
+    protected $helpers = ['url'];
 
     /**
      * @return void

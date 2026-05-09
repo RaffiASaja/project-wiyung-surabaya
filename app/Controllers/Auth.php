@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\AntrianModel;
 
 class Auth extends BaseController
 {
@@ -58,6 +59,13 @@ class Auth extends BaseController
             'logged_in' => true,
             'isLoggedIn' => true,
         ]);
+
+        // Cleanup otomatis agar DB lokal tidak penuh (aman: hanya data lama).
+        try {
+            (new AntrianModel())->cleanupOldRecords();
+        } catch (\Throwable) {
+            // ignore cleanup failures on login
+        }
 
         return redirect()->to('/dashboard')
             ->with('success', 'Login berhasil, selamat datang!');

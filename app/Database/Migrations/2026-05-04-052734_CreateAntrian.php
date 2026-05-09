@@ -8,6 +8,12 @@ class CreateAntrian extends Migration
 {
     public function up()
     {
+        // Legacy bug created table name `antrians`.
+        // Prefer correct singular `antrian` going forward.
+        if ($this->db->tableExists('antrian') || $this->db->tableExists('antrians')) {
+            return;
+        }
+
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
@@ -69,6 +75,11 @@ class CreateAntrian extends Migration
 
     public function down()
     {
-        $this->forge->dropTable('antrian');
+        if ($this->db->tableExists('antrian')) {
+            $this->forge->dropTable('antrian');
+        }
+        if ($this->db->tableExists('antrians')) {
+            $this->forge->dropTable('antrians');
+        }
     }
 }

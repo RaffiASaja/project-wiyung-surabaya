@@ -12,7 +12,7 @@
     <main class="auth">
         <section class="auth-card">
             <div class="auth-logo">
-                <img src="<?= base_url('assets/img/logo-upiukkb.svg') ?>" alt="Logo">
+                <img src="<?= base_url('assets/img/logo_dishub.png') ?>" alt="Logo">
             </div>
 
             <h1 class="auth-title">UPIUKKB WIYUNG</h1>

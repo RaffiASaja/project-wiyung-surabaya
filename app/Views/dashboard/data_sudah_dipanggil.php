@@ -2,74 +2,73 @@
 
 <?= $this->section('content') ?>
 <div class="page">
+    <div class="topBtn">
+        <input type="date" id="tanggal_uji">
+        <button id="btnAmbilData">Tampilkan Data</button>
+    </div>
     <div class="card">
         <div class="card-head">
             <div class="card-title">Data Sudah Di Panggil</div>
+        </div>
+
+        <div class="table-toolbar">
             <div class="search">
                 <span class="search-icon">⌕</span>
-                <input type="text" placeholder="Search...">
+                <input type="text" placeholder="Cari nama / no uji / kendaraan..." data-dashboard-search>
+            </div>
+
+            <div class="filters">
+                <select data-dashboard-sort aria-label="Urutkan">
+                    <option value="">Default</option>
+                    <option value="terbaru">Terbaru</option>
+                    <option value="terlama">Terlama</option>
+                </select>
+
+                <select data-dashboard-perpage aria-label="Per halaman">
+                    <option value="10">10</option>
+                    <option value="20" selected>20</option>
+                    <option value="50">50</option>
+                </select>
             </div>
         </div>
 
         <div class="table-wrap">
             <?php if (session()->getFlashdata('error')): ?>
-                <p style="color:red;">
-                    <?= session()->getFlashdata('error') ?>
-                </p>
+                <p style="color:red;"><?= session()->getFlashdata('error') ?></p>
             <?php endif; ?>
+            <?php if (session()->getFlashdata('success')): ?>
+                <p style="color:green;"><?= session()->getFlashdata('success') ?></p>
+            <?php endif; ?>
+
             <table class="table">
                 <thead>
                     <tr>
-                        <th style="width: 70px;">Nomor</th>
+                        <th style="width: 50px;">No</th>
                         <th style="width: 180px;">Nama Pemilik</th>
                         <th style="width: 150px;">Nomor Uji</th>
                         <th style="width: 170px;">Nomor Kendaraan</th>
-                        <th>Pos</th>
+                        <th style="width: 50px;">Pos</th>
                         <th style="width: 120px;">Status</th>
+                        <th style="width: 160px;">Waktu Panggil</th>
+                        <th style="width: 140px;">Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <?php $no = 1; ?>
-                    <?php foreach ($antrian as $row): ?>
-                        <tr>
-                            <td><?= $no++ ?></td>
-                            <td><?= $row['nama'] ?></td>
-                            <td><?= $row['no_uji'] ?></td>
-                            <td><?= $row['nomor_kendaraan'] ?? '-' ?></td>
-                            <td><?= $row['pos'] ?? '-' ?></td>
-                            <td>
-                                <?php if ($row['status'] === 'dipanggil'): ?>
-                                    <span style="color: orange;">Dipanggil</span>
-                                <?php elseif ($row['status'] === 'selesai'): ?>
-                                    <span style="color: green;">Selesai</span>
-                                <?php endif; ?>
-                            </td>
-                            <td><?= $row['waktu_panggil'] ?? '-' ?></td>
-                            <td>
-                                <!-- 🔁 Panggil lagi -->
-                                <a href="/antrian/panggil-ulang/<?= $row['id'] ?>">
-                                    <button style="background: #03A9F4;">📞</button>
-                                </a>
-
-                                <!-- ✅ Selesai -->
-                                <a href="/antrian/selesai/<?= $row['id'] ?>"
-                                    onclick="return confirm('Yakin ingin menyelesaikan antrian ini?')">
-                                    <button style="background: #4CAF50;">✔</button>
-                                </a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                    <!-- <tr>
-                        <td colspan="6" class="empty">&nbsp;</td>
-                    </tr>
+                <tbody data-dashboard-tbody>
                     <tr>
-                        <td colspan="6" class="empty">&nbsp;</td>
+                        <td colspan="8">
+                            <div class="table-empty">
+                                <div class="table-empty__title">Memuat data...</div>
+                            </div>
+                        </td>
                     </tr>
-                    <tr>
-                        <td colspan="6" class="empty">&nbsp;</td>
-                    </tr> -->
                 </tbody>
             </table>
+
+            <div class="table-footer" data-dashboard-table data-kind="sudah" data-colcount="8"
+                data-endpoint="<?= site_url('antrian/ajax') ?>">
+                <div class="table-meta" data-dashboard-meta></div>
+                <div class="table-pager" data-dashboard-pager></div>
+            </div>
         </div>
     </div>
 </div>

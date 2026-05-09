@@ -14,8 +14,12 @@ class Dashboard extends BaseController
 
         helper(['url']);
 
-        $ujiHariIni = (new AntrianModel())->countAllResults();
+        $tglUji = date('Y-m-d');
+        $ujiHariIni = (new AntrianModel())
+            ->where('office_tgl_uji', $tglUji)
+            ->countAllResults();
         $belumDipanggil = (new AntrianModel())
+            ->where('office_tgl_uji', $tglUji)
             ->where('status', 'belum')
             ->countAllResults();
 
@@ -28,23 +32,11 @@ class Dashboard extends BaseController
 
     public function dataBelumDipanggil()
     {
-        $model = new AntrianModel();
-
-        $data['antrian'] = $model
-            ->where('status', 'belum')
-            ->findAll();
-
-        return view('dashboard/data_belum_dipanggil', $data);
+        return view('dashboard/data_belum_dipanggil');
     }
 
     public function dataSudahDipanggil()
     {
-        $model = new AntrianModel();
-
-        $data['antrian'] = $model
-            ->where('status', 'dipanggil')
-            ->findAll();
-
-        return view('dashboard/data_sudah_dipanggil', $data);
+        return view('dashboard/data_sudah_dipanggil');
     }
 }
